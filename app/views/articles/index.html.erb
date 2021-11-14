@@ -1,11 +1,339 @@
-<h1>Articles</h1>
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <%= link_to article.title, article %>
-    </li>
-  <% end %>
-</ul>
 
-<%= link_to "New Article", new_article_path %>
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <style>
+
+      .ashu input[type="submit"]:hover{
+          cursor:pointer;
+          background:#ffc107;
+          color:#000;
+      }
+      img.image:hover,
+      img.image:focus {
+          width:99%;
+          transition: 0.1s;
+          cursor:pointer;
+      }
+
+      .grid
+      {
+          display:grid;
+          grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
+          grid-gap: 20px;
+          align-items: center;
+          margin: 20px;
+      }
+
+      .grid article
+      {
+          border: 4px solid black;
+          box-shadow: 2px 2px 8px 5px rgb(235,158,52);
+          border-radius: 15px;
+      }
+      .grid article img
+      {
+          max-width: 100%;
+          border-radius: 13px;
+      }
+      .grid article .text
+      {
+          padding: 0 0 0 20px;
+          font-family: 'kelem',cursive;
+          font-size:20px;
+          margin-bottom: -10px;
+          margin-top: -10px ;
+      }
+      .ashu
+      {
+          display: inline;
+      }
+      html
+      {
+          scroll-behavior: smooth;
+      }
+      *
+      {
+          padding: 0; margin: 0;
+      }
+      div
+      {
+          display: inline;
+      }
+      form
+      {
+          background: transparent;
+      }
+      section
+      {
+          margin-top: 100px;
+      }
+      a, a:hover, a:focus, a:active
+      {
+          text-decoration: none;
+          color: inherit;
+      }
+      .link
+      {
+          color: #eb9e34;
+          font-family: 'Dancing Script', cursive;
+          font-size:25px;
+      }
+      .link1
+      {
+          color: #eb9e34;
+          font-family: 'Dancing Script', cursive;
+          font-size:15px;
+      }
+      .img
+      {
+          width:90%;
+          padding: 0;
+          margin: 0;
+          vertical-align:top;
+      }
+      .navbar
+      {
+          height: 80px;
+          background-color: transparent;
+          border: none;
+          color: white;
+          z-index: 100;
+          transition: background-color 1s ease 0s;
+      }
+      .navbar-default .navbar-brand
+      {
+          margin-top: 10px;
+          color: black;
+      }
+      .navbar-default .navbar-brand:hover
+      {
+          /*color: #black;*/
+          border: 1px solid #C57ED3;
+      }
+      .navbar-default .navbar-nav > li > a
+      {
+          color: black;
+          margin: 10px 5px 5px 5px;
+      }
+      .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:active, .navbar-default .navbar-nav > li > a:focus {
+          color: #C57ED3;
+          border: 1px solid #C57ED3;
+      }
+      .navbar-default .navbar-nav > li > a:visited
+      {
+          color: #C57ED3;
+          text-decoration: none;
+      }
+      .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+          background-color: transparent;
+          color: #C57ED3;
+      }
+      .navbar-default .navbar-toggle {
+          border-color: #C57ED3;
+      }
+      .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
+      {
+          background-color: #490D40;
+      }
+      .navbar-default .navbar-toggle .icon-bar
+      {
+          color: #C57ED3;
+          background-color: #C57ED3;
+      }
+      .navbar-default .navbar-collapse.collapse.in ul
+      {
+          background-color: #490D40;
+      }
+
+      /* Solid class attached on scroll past first section */
+      .navbar.solid
+      {
+          background-color: #490D40;
+          transition: background-color 1s ease 0s;
+          box-shadow: 0 0 4px grey;
+      }
+      .navbar.solid .navbar-brand
+      {
+          color: #C57ED3;
+          transition: color 1s ease 0s;
+      }
+      .navbar.solid .navbar-nav > li > a
+      {
+          color: #C57ED3;
+          transition: color 1s ease 0s;
+      }
+
+      .about
+      {
+          background-color: #C57ED3;
+          color: #490D40;
+          height: 600px;
+          text-align: center;
+          margin-top: -20px;
+      }
+      .about h2
+      {
+          padding-top: 220px;
+      }
+      .about p
+      {
+          padding: 20px 80px;
+      }
+      @import url(https://fonts.googleapis.com/css?family=Dancing+Script|Roboto);
+      *, *:after, *:before {
+          box-sizing: border-box;
+      }
+      h1 {
+          margin-top: 0 ;
+          margin-bottom: 0;
+      }
+
+      body {
+
+          text-align: center;
+          font-family: 'Roboto', sans-serif;
+      }
+
+      .panda {
+          position: relative;
+          width: 200px;
+          margin: 50px auto;
+      }
+      .a
+      {
+
+          margin:0px;
+      }
+
+      .body {
+          background: #fff;
+          position: absolute;
+          top: 200px;
+          left: -20px;
+          border-radius: 100px 100px 100px 100px/126px 126px 96px 96px;
+          width: 250px;
+          height: 282px;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      }
+
+
+      h1 {
+          color: #FF4081;
+          font-family: 'Dancing Script', cursive;
+      }
+      .temp
+      {
+          background:transparent;
+          border: none;
+      }
+      .page
+      {
+
+      }
+
+  </style>
+  <title> 𝐈𝐦𝐚𝐠𝐞 𝐇𝐨𝐬𝐭𝐞𝐫 </title>
+  <link rel="shortcut icon" th:href="@{/image/icon.png}">
+</head>
+
+
+<section>
+  <br>
+  <main>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#"><div><img th:src="@{/image/pic3.png}" class="img"></div></a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><span class="link" ><%= link_to "New Article", new_article_path %>&ensp;</span> </li>
+            <li> <span >&emsp;&emsp;&emsp;&emsp;</span> </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </main>
+
+  <main class="grid">
+
+    <% @articles.each do |article| %>
+      <article style="color: #ffc107">
+        <div>
+          <%= image_tag(article.image) if article.image.attached? %>
+        </div>
+        <div class="text">
+         <i>Title:&ensp;</i><span ><%= article.id %></span><br>
+          <i>Title:&ensp;</i><span ><%= article.title %></span><br>
+          <i>Description:&ensp;</i><span ><%= article.body %></span><br>
+          <br>
+          <span>
+
+                          <%= link_to "Comment",article, :class => "temp link"%>
+                    </span>
+          &emsp;
+          <span>
+                          <%= link_to "Edit", edit_article_path(article), :class => "temp link"%>
+                    </span>
+          &emsp;
+          <span>
+            <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } ,:class => "temp link"%>
+                    </span>
+        </div>
+      </article>
+    <% end %>
+
+  </main>
+</section>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+      $('#image').focusin(function(){
+          $('form').addClass('up')
+      });
+      $('#Description').focusin(function(){
+          $('form').addClass('up')
+      });
+      $('#image').focusout(function(){
+          $('form').removeClass('up')
+      });
+      $('#Description').focusout(function(){
+          $('form').removeClass('up')
+      });
+
+      // Panda Eye move
+      $( document ).on( "mousemove", function( event ) {
+          var x = event.pageX/50;
+          var y = event.pageY/25;
+          $('.eye-ball').css({
+              width : x,
+              height : y
+          });
+      });
+
+      // validation
+
+
+      $('.btn').click(function(){
+          $('form').addClass('wrong-entry');
+          setTimeout(function(){
+              $('form').removeClass('wrong-entry');
+          },3000 );
+      });
+  </script>
+
+</html>
